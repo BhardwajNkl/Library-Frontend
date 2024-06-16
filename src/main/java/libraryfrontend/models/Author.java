@@ -1,4 +1,4 @@
-package model;
+package libraryfrontend.models;
 
 public class Author {
 	private String authorId;

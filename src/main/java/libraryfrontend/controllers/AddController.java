@@ -1,30 +1,33 @@
-package controllers;
+package libraryfrontend.controllers;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import model.Author;
-import services.AddService;
+import libraryfrontend.models.Author;
+import libraryfrontend.services.AddService;
+
 
 @Controller
 public class AddController {
-	AddService as;
+	@Autowired
+	private AddService addService;
+	
 	@RequestMapping("/add")
-	public ModelAndView add(HttpSession s) {
+	public ModelAndView add(HttpSession session) {
 		ModelAndView mv;
-		if(s.getAttribute("loggeduser")==null) {
+		if(session.getAttribute("loggeduser")==null) {
 			mv = new ModelAndView("redirect:/");
 			return mv;
 		}
 		
 		mv = new ModelAndView();
-		as = new AddService();
-		List<Author> authorList=as.getData();
+		List<Author> authorList=addService.getAuthorList();
 		mv.addObject("authorList",authorList);
 		mv.setViewName("add");
 		return mv;
