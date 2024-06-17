@@ -3,12 +3,8 @@ package libraryfrontend.controllers;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,16 +21,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import libraryfrontend.models.Author;
-import libraryfrontend.models.Book;
-import libraryfrontend.services.HomeService;
+import libraryfrontend.services.LoginService;
 
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = 
 { "file:src/main/webapp/WEB-INF/libraryfrontend-servlet.xml",
 		"file:src/main/webapp/WEB-INF/web.xml"})
 @WebAppConfiguration
-public class HomeControllerTest {
+public class LoginControllerTest {
  
     private MockMvc mockMvc;
  
@@ -45,36 +39,36 @@ public class HomeControllerTest {
     private MockHttpSession session;
  
     @Mock
-    private HomeService homeService;
+    private LoginService loginService;
  
     @InjectMocks
-    private HomeController homeController;
+    private LoginController loginController;
  
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(homeController);
-        mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
+        MockitoAnnotations.initMocks(loginController);
+        mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
     }
  
     @Test
-    public void testHomeController() throws Exception {
+    public void testLoginController() throws Exception {
     	
-    	Author author = new Author("1", "John Doe");
-        
-        Book mockBook = new Book(1,"code1","book1","Monday, June 10, 2022", author);
-    	List<Book> bookList = Arrays.asList(mockBook);
+    	String username = "root";
+    	String password = "root";
     	
-     	when(homeService.getBookList()).thenReturn(bookList);
- 
-    	when(session.getAttribute("loggeduser")).thenReturn("user");
+     	when(loginService.verifyUserCredentials(username, password)).thenReturn(true);
   
-      mockMvc.perform(get("/home").session(session))
-              .andExpect(status().isOk())
-              .andExpect(view().name("home_page"))
-              .andExpect(model().attributeExists("bookList"))
-              .andExpect(model().attribute("bookList", bookList));
-        verify(homeService).getBookList();
+      mockMvc.perform(get("/login")
+    		  .param("username", username)
+    		  .param("password", password)
+    		  .session(session))
+		      .andExpect(status().is3xxRedirection()) 
+		      .andExpect(redirectedUrl("/home"));
+      
+        verify(loginService).verifyUserCredentials(username, password);
+        verify(session).setAttribute("loggeduser", "root");
     }
  
     
 }
+

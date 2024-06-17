@@ -33,7 +33,7 @@ public class EditController {
 		mv = new ModelAndView();
 		mv.addObject("book",book);
 		mv.addObject("authorList",authorList);
-		mv.setViewName("edit");
+		mv.setViewName("edit_page");
 		
 		return mv;
 	}

@@ -30,7 +30,7 @@ public class HomeController {
 		List<Book> bookList=homeService.getBookList();
 		
 		mv.addObject("bookList",bookList);
-		mv.setViewName("home");
+		mv.setViewName("home_page");
 		
 		return mv;
 	}

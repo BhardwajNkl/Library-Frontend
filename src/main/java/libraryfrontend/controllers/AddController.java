@@ -29,7 +29,7 @@ public class AddController {
 		mv = new ModelAndView();
 		List<Author> authorList=addService.getAuthorList();
 		mv.addObject("authorList",authorList);
-		mv.setViewName("add");
+		mv.setViewName("add_page");
 		return mv;
 	}
 }
