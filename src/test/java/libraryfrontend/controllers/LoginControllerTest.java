@@ -51,14 +51,16 @@ public class LoginControllerTest {
     }
  
     @Test
-    public void testLoginController() throws Exception {
-    	
+    public void testLoginSuccessful() throws Exception {
+    	// arrange
     	String username = "root";
     	String password = "root";
     	
+    	// mock
      	when(loginService.verifyUserCredentials(username, password)).thenReturn(true);
   
-      mockMvc.perform(get("/login")
+     	// act and verify
+     	mockMvc.perform(get("/login")
     		  .param("username", username)
     		  .param("password", password)
     		  .session(session))
@@ -68,7 +70,26 @@ public class LoginControllerTest {
         verify(loginService).verifyUserCredentials(username, password);
         verify(session).setAttribute("loggeduser", "root");
     }
- 
+    
+    @Test
+    public void testLoginFailed() throws Exception {
+    	// arrange
+    	String username = "root";
+    	String password = "wrongroot";
+    	
+    	// mock
+     	when(loginService.verifyUserCredentials(username, password)).thenReturn(false);
+  
+     	// act and verify
+     	mockMvc.perform(get("/login")
+    		  .param("username", username)
+    		  .param("password", password)
+    		  .session(session))
+		      .andExpect(status().is3xxRedirection()) 
+		      .andExpect(redirectedUrl("/"));
+      
+        verify(loginService).verifyUserCredentials(username, password);
+    }
     
 }
 

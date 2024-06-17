@@ -25,15 +25,20 @@ public class AddServiceTest {
 
     @Test
     public void testGetAuthorList() {
+    	
+    	// arrange
         Author[] authors = { new Author("1", "John Doe"), new Author("2", "Jane Smith") };
         List<Author> authorList = Arrays.asList(authors);
 
+        // mock
         when(restTemplate.getForObject(anyString(), eq(Author[].class))).thenReturn(authors);
 
+        // act
         List<Author> result = addService.getAuthorList();
 
+        // assert and verify
+        assertEquals(authorList, result);
         verify(restTemplate).getForObject("http://localhost:9090/author", Author[].class);
 
-        assertEquals(authorList, result);
     }
 }

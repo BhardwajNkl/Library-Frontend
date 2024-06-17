@@ -1,7 +1,10 @@
 package libraryfrontend.services;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,14 +36,14 @@ public class LoginServiceTest {
     }
 
     @Test
-    public void testVerifyUserCredentials_Success() {
-		
-    	String username = "user";
-        String password = "pass";
-        String url = "http://localhost:9090/verify-login-credentials";
-
+    public void testVerifyUserCredentialsSuccessful() {
+		// arrange
+    	String username = "root";
+        String password = "root";
         UserCredentialsModel credentials = new UserCredentialsModel(username, password);
 
+        String url = "http://localhost:9090/verify-login-credentials";
+        
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
@@ -48,19 +51,22 @@ public class LoginServiceTest {
 
         ResponseEntity<Boolean> responseEntity = new ResponseEntity<Boolean>(true, HttpStatus.OK);
 
+        // mock
         when(restTemplate.postForEntity(eq(url), any(HttpEntity.class), eq(Boolean.class))).thenReturn(responseEntity);
 
+        // act and assert
         boolean result = loginService.verifyUserCredentials(username, password);
         assertTrue(result);
     }
 
     @Test
-    public void testVerifyUserCredentials_Failure() {
-        String username = "user";
-        String password = "wrongpass";
-        String url = "http://localhost:9090/verify-login-credentials";
-
+    public void testVerifyUserCredentialsFailure() {
+    	// arrange
+        String username = "root";
+        String password = "wrongroot";
         UserCredentialsModel credentials = new UserCredentialsModel(username, password);
+
+        String url = "http://localhost:9090/verify-login-credentials";
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
@@ -69,8 +75,10 @@ public class LoginServiceTest {
 
         ResponseEntity<Boolean> responseEntity = new ResponseEntity<Boolean>(false, HttpStatus.OK);
 
+        // mock
         when(restTemplate.postForEntity(eq(url), any(HttpEntity.class), eq(Boolean.class))).thenReturn(responseEntity);
 
+        // act and assert
         boolean result = loginService.verifyUserCredentials(username, password);
         assertFalse(result);
     }

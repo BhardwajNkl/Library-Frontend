@@ -33,39 +33,37 @@ public class EditServiceTest {
 
     @Test
     public void testGetBook() {
-        // Mock response from the RestTemplate
+    	
+    	// arrange
     	Author authorMock = new Author("1","John Mcafee");
         Book mockBook = new Book(1,"code1","book1","Monday, June 10, 2022", authorMock);
         
-        // Mock RestTemplate behavior
+        // mock
         when(restTemplate.getForObject("http://localhost:9090/book/1", Book.class)).thenReturn(mockBook);
-
-        // Call the method under test
+        
+        // act
         Book result = editService.getBook("1");
 
-        // Verify that restTemplate.getForObject() was called with the correct URL and response type
-        verify(restTemplate).getForObject("http://localhost:9090/book/1", Book.class);
-
-        // Verify the expected result
+        // assert and verify
         assertEquals(mockBook, result);
+        verify(restTemplate).getForObject("http://localhost:9090/book/1", Book.class);
     }
 
     @Test
     public void testGetAuthorList() {
-        // Mock response from the RestTemplate
+    	
+    	// arrange
         Author[] authors = { new Author("1", "John Doe"), new Author("2", "Jane Smith") };
         List<Author> authorList = Arrays.asList(authors);
 
-        // Mock RestTemplate behavior
+        // mock
         when(restTemplate.getForObject("http://localhost:9090/author", Author[].class)).thenReturn(authors);
 
-        // Call the method under test
+        // act
         List<Author> result = editService.getAuthorList();
 
-        // Verify that restTemplate.getForObject() was called with the correct URL and response type
-        verify(restTemplate).getForObject("http://localhost:9090/author", Author[].class);
-
-        // Verify the expected result
+        // assert and verify
         assertEquals(authorList, result);
+        verify(restTemplate).getForObject("http://localhost:9090/author", Author[].class);
     }
 }

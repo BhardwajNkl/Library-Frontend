@@ -45,16 +45,15 @@ public class LogoutControllerTest {
     }
  
     @Test
-    public void testLoginController() throws Exception {
-    	  
-      mockMvc.perform(get("/logout")
+    public void testLogoutController() throws Exception {
+    	// act and verify
+    	mockMvc.perform(get("/logout")
     		  .session(session))
 		      .andExpect(status().is3xxRedirection()) 
 		      .andExpect(redirectedUrl("/"));
       
         verify(session).invalidate();
     }
- 
     
 }
 

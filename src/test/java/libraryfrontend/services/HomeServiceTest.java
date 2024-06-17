@@ -34,21 +34,20 @@ public class HomeServiceTest {
 
     @Test
     public void testGetBookList() {
+    	// arrange
     	Author author = new Author("1","John Mcafee");
         Book[] books = { new Book(1,"code1","book1","Monday, June 10, 2022", author),
         		new Book(2,"code2","book2","Monday, June 10, 2022", author) };
         List<Book> bookList = Arrays.asList(books);
 
-        // Mock RestTemplate behavior
+        // mock
         when(restTemplate.getForObject("http://localhost:9090/book", Book[].class)).thenReturn(books);
 
-        // Call the method under test
+        // act
         List<Book> result = homeService.getBookList();
 
-        // Verify that restTemplate.getForObject() was called with the correct URL and response type
-        verify(restTemplate).getForObject("http://localhost:9090/book", Book[].class);
-
-        // Verify the expected result
+        // assert and verify
         assertEquals(bookList, result);
+        verify(restTemplate).getForObject("http://localhost:9090/book", Book[].class);
     }
 }
