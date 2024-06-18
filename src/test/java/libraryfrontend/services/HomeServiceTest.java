@@ -1,17 +1,16 @@
 package libraryfrontend.services;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,15 +26,10 @@ public class HomeServiceTest {
     @InjectMocks
     private HomeService homeService;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testGetBookList() {
     	// arrange
-    	Author author = new Author("1","John Mcafee");
+    	Author author = new Author("1","author1");
         Book[] books = { new Book(1,"code1","book1","Monday, June 10, 2022", author),
         		new Book(2,"code2","book2","Monday, June 10, 2022", author) };
         List<Book> bookList = Arrays.asList(books);

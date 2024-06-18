@@ -24,7 +24,7 @@ public class AuthorTest {
     @Test
     public void testAllArgumentsConstructor() {
         String authorId = "1";
-        String authorName = "John Mcafee";
+        String authorName = "author1";
         Author author = new Author(authorId, authorName);
         assertNotNull(author);
         assertEquals(authorId, author.getAuthorId());
@@ -34,7 +34,7 @@ public class AuthorTest {
     @Test
     public void testGettersAndSetters() {
         String authorId = "1";
-        String authorName = "John Mcafee";
+        String authorName = "author1";
         
         author.setAuthorId(authorId);
         author.setAuthorName(authorName);

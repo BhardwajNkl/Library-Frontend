@@ -1,18 +1,16 @@
 package libraryfrontend.services;
 
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,16 +24,11 @@ public class EditServiceTest {
     @InjectMocks
     private EditService editService;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
     @Test
     public void testGetBook() {
     	
     	// arrange
-    	Author authorMock = new Author("1","John Mcafee");
+    	Author authorMock = new Author("1","author1");
         Book mockBook = new Book(1,"code1","book1","Monday, June 10, 2022", authorMock);
         
         // mock
@@ -53,7 +46,7 @@ public class EditServiceTest {
     public void testGetAuthorList() {
     	
     	// arrange
-        Author[] authors = { new Author("1", "John Doe"), new Author("2", "Jane Smith") };
+        Author[] authors = { new Author("1", "author1"), new Author("2", "author1") };
         List<Author> authorList = Arrays.asList(authors);
 
         // mock

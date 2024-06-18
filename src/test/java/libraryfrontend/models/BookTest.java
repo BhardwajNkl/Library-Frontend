@@ -13,7 +13,7 @@ public class BookTest {
 
     @Before
     public void setUp() {
-        author = new Author("1", "John Mcafee");
+        author = new Author("1", "author1");
         book = new Book();
     }
 

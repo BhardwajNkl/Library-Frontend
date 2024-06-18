@@ -62,7 +62,7 @@ public class EditControllerTest {
     @Test
     public void testEditControllerForLoggedInUser() throws Exception {
     	// arrange
-    	Author author = new Author("1", "John Doe");
+    	Author author = new Author("1", "author1");
     	List<Author> authorList = Arrays.asList(author);
         
         Book mockBook = new Book(1,"code1","book1","Monday, June 10, 2022", author);

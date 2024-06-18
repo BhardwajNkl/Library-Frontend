@@ -27,7 +27,7 @@ public class AddServiceTest {
     public void testGetAuthorList() {
     	
     	// arrange
-        Author[] authors = { new Author("1", "John Doe"), new Author("2", "Jane Smith") };
+        Author[] authors = { new Author("1", "author1"), new Author("2", "author2") };
         List<Author> authorList = Arrays.asList(authors);
 
         // mock

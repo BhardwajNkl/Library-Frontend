@@ -6,12 +6,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -29,11 +27,6 @@ public class LoginServiceTest {
 
     @InjectMocks
     private LoginService loginService;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testVerifyUserCredentialsSuccessful() {
@@ -59,6 +52,7 @@ public class LoginServiceTest {
         assertTrue(result);
     }
 
+    // useless test
     @Test
     public void testVerifyUserCredentialsFailure() {
     	// arrange

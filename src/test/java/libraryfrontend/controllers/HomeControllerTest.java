@@ -61,7 +61,7 @@ public class HomeControllerTest {
     @Test
     public void testHomeControllerForLoggedInUser() throws Exception {
     	// arrange
-    	Author author = new Author("1", "John Doe");
+    	Author author = new Author("1", "author1");
         
         Book mockBook = new Book(1,"code1","book1","Monday, June 10, 2022", author);
     	List<Book> bookList = Arrays.asList(mockBook);

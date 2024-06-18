@@ -61,7 +61,7 @@ public class AddControllerTest {
     public void testAddControllerForLoggedInUser() throws Exception {
     	
     	// arrange
-    	Author author = new Author("1", "John Doe");
+    	Author author = new Author("1", "author1");
     	List<Author> authorList = Arrays.asList(author);
     	String loggedUser = "root";
 
